@@ -28,6 +28,7 @@ class GameModel {
   public isGameOver: boolean;
   public timeSurvived: number;
   public killCount: number;
+  public currentScore: number; // NEW: Live score
   public ammo: number;
   public maxAmmo: number;
   public isReloading: boolean;
@@ -57,6 +58,7 @@ class GameModel {
     this.isGameOver = false;
     this.timeSurvived = 0;
     this.killCount = 0;
+    this.currentScore = 0; // NEW: Reset score
     this.ammo = 30;
     this.maxAmmo = 30;
     this.isReloading = false;
@@ -68,6 +70,12 @@ class GameModel {
     
     // Spawn initial zombie
     this.spawnZombie();
+  }
+
+  // NEW: Calculate current score
+  private updateScore(): void {
+    // Same formula as leaderboard: time * 10 + kills * 50
+    this.currentScore = Math.round(this.timeSurvived * 10 + this.killCount * 50);
   }
 
   spawnZombie(): void {
@@ -157,6 +165,7 @@ class GameModel {
           this.bullets.splice(i, 1);
           this.zombies.splice(j, 1);
           this.killCount++;
+          this.updateScore(); // NEW: Update score when kill happens
           
           // Spawn new zombie after a short delay
           setTimeout(() => {
@@ -231,6 +240,7 @@ class GameModel {
     if (this.isGameOver) return;
     
     this.timeSurvived += deltaTime;
+    this.updateScore(); // NEW: Update score continuously as time increases
     
     // Handle reloading
     if (this.isReloading) {
@@ -252,14 +262,7 @@ class GameModel {
         this.zombieSpawnRate -= 0.1;
       }
     }
-    
-    // Restock ammo every 15 seconds (only if not at max and not reloading)
-    if (this.timeSurvived - this.lastAmmoRestock >= 15 && !this.isReloading) {
-      if (this.ammo < this.maxAmmo) {
-        this.ammo = Math.min(this.maxAmmo, this.ammo + 15);
-        this.lastAmmoRestock = this.timeSurvived;
-      }
-    }
+  
     
     this.updateZombies();
     this.updateBullets();

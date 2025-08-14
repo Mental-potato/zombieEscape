@@ -7,7 +7,7 @@
   <link rel="stylesheet" href="./dist/style.css">
 </head>
 <body>
-  <!-- Navigation -->
+
   <nav class="navbar">
     <div class="nav-brand">🧟 ZOMBIE CHASE 🧟</div>
     <div class="nav-links">
@@ -19,10 +19,17 @@
   </nav>
 
   <div class="page-container">
+
+    <div id="top-score-display" class="top-score-panel">
+      <span class="top-score-label">🏆 Best Score:</span>
+      <span id="top-score-value">0</span>
+    </div>
+
     <div id="ui">
       <div id="stats">
         <div id="timer">Time survived: 0.0s</div>
         <div id="killCount">Kills: 0</div>
+        <div id="currentScore">Score: 0</div>
         <div style="display: flex; align-items: center;">
           <div id="ammo">Ammo: 30</div>
           <div id="reloadBar">
@@ -39,7 +46,17 @@
 
     <div style="position: relative;">
       <canvas id="game" width="800" height="600"></canvas>
-      <div id="gameOver" style="display:none;">GAME OVER!</div>
+      <div id="gameOver" style="display:none;">
+        <div class="game-over-content">
+          <div class="game-over-title">GAME OVER!</div>
+          <div class="game-over-stats">
+            <div class="final-score">Final Score: <span id="final-score">0</span></div>
+            <div class="game-over-details">
+              <span id="final-time">0.0s survived</span> • <span id="final-kills">0 kills</span>
+            </div>
+          </div>
+        </div>
+      </div>
     </div>
 
     <div class="controls">
@@ -47,7 +64,7 @@
     </div>
   </div>
 
-  <!-- Game Scripts -->
+
   <script src="./src/dist/Leaderboard.js"></script>
   <script src="./src/model/dist/GameModel.js"></script>
   <script src="./src/view/dist/GameView.js"></script>
