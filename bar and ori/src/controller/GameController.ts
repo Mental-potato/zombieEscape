@@ -21,12 +21,12 @@ class GameController {
   }
 
   private setupEventListeners(): void {
-    // Use both key and code for better compatibility
+
     window.addEventListener("keydown", (e: KeyboardEvent) => {
       this.keys[e.key] = true;
       this.keys[e.code] = true;
       
-      // Don't prevent default for movement keys to avoid conflicts
+
       if (!["KeyW", "KeyA", "KeyS", "KeyD", "ArrowUp", "ArrowDown", "ArrowLeft", "ArrowRight"].includes(e.code)) {
         e.preventDefault();
       }
@@ -41,7 +41,7 @@ class GameController {
       }
     });
 
-    // Mouse events for shooting
+  
     this.canvas.addEventListener("mousemove", (e: MouseEvent) => {
       const rect = this.canvas.getBoundingClientRect();
       const x = e.clientX - rect.left;
@@ -58,7 +58,6 @@ class GameController {
       this.model.shoot(x, y);
     });
 
-    // Change cursor to crosshair when over canvas
     this.canvas.addEventListener("mouseenter", () => {
       this.canvas.style.cursor = "crosshair";
     });
@@ -68,7 +67,6 @@ class GameController {
       this.view.updateMouse(null, null);
     });
 
-    // Button event listeners
     const startBtn = document.getElementById("startBtn");
     const pauseBtn = document.getElementById("pauseBtn");
     const resetBtn = document.getElementById("resetBtn");
@@ -77,7 +75,6 @@ class GameController {
     if (pauseBtn) pauseBtn.addEventListener("click", () => this.pause());
     if (resetBtn) resetBtn.addEventListener("click", () => this.reset());
 
-    // Allow spacebar to start/pause and R to reload
     window.addEventListener("keydown", (e: KeyboardEvent) => {
       if (e.code === "Space") {
         e.preventDefault();
@@ -85,7 +82,12 @@ class GameController {
           this.start();
         } else if (this.isRunning) {
           this.pause();
+        } else if (this.model.isGameOver) {
+          
+          this.reset();
+          this.start();
         }
+        
       } else if (e.code === "KeyR" || e.key === "r" || e.key === "R") {
         e.preventDefault();
         if (this.isRunning && !this.model.isGameOver) {
@@ -96,6 +98,9 @@ class GameController {
   }
 
   start(): void {
+    if (this.model.isGameOver) {
+      this.reset();
+    }
     this.isRunning = true;
     this.view.hideGameOver();
   }
@@ -115,20 +120,15 @@ class GameController {
   update(deltaTime: number): void {
     if (!this.isRunning || this.model.isGameOver) return;
 
-    // Update player position
     this.model.updatePlayer(this.keys);
 
-    // Update game model
     this.model.update(deltaTime);
 
-    // Update UI
     this.view.updateUI(this.model);
 
-    // Check collision
     if (this.model.checkCollisions()) {
       this.model.isGameOver = true;
       
-      // Add score to leaderboard
       const rank = this.leaderboard.addScore(this.model.timeSurvived, this.model.killCount);
       this.leaderboard.highlightScore(rank);
       
@@ -136,7 +136,6 @@ class GameController {
       this.isRunning = false;
     }
 
-    // Draw everything
     this.view.draw(this.model);
   }
 }

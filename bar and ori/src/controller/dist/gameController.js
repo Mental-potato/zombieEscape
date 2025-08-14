@@ -14,11 +14,9 @@ var GameController = /** @class */ (function () {
     }
     GameController.prototype.setupEventListeners = function () {
         var _this = this;
-        // Use both key and code for better compatibility
         window.addEventListener("keydown", function (e) {
             _this.keys[e.key] = true;
             _this.keys[e.code] = true;
-            // Don't prevent default for movement keys to avoid conflicts
             if (!["KeyW", "KeyA", "KeyS", "KeyD", "ArrowUp", "ArrowDown", "ArrowLeft", "ArrowRight"].includes(e.code)) {
                 e.preventDefault();
             }
@@ -30,7 +28,6 @@ var GameController = /** @class */ (function () {
                 e.preventDefault();
             }
         });
-        // Mouse events for shooting
         this.canvas.addEventListener("mousemove", function (e) {
             var rect = _this.canvas.getBoundingClientRect();
             var x = e.clientX - rect.left;
@@ -45,7 +42,6 @@ var GameController = /** @class */ (function () {
             var y = e.clientY - rect.top;
             _this.model.shoot(x, y);
         });
-        // Change cursor to crosshair when over canvas
         this.canvas.addEventListener("mouseenter", function () {
             _this.canvas.style.cursor = "crosshair";
         });
@@ -53,7 +49,6 @@ var GameController = /** @class */ (function () {
             _this.canvas.style.cursor = "default";
             _this.view.updateMouse(null, null);
         });
-        // Button event listeners
         var startBtn = document.getElementById("startBtn");
         var pauseBtn = document.getElementById("pauseBtn");
         var resetBtn = document.getElementById("resetBtn");
@@ -63,7 +58,6 @@ var GameController = /** @class */ (function () {
             pauseBtn.addEventListener("click", function () { return _this.pause(); });
         if (resetBtn)
             resetBtn.addEventListener("click", function () { return _this.reset(); });
-        // Allow spacebar to start/pause and R to reload
         window.addEventListener("keydown", function (e) {
             if (e.code === "Space") {
                 e.preventDefault();
@@ -72,6 +66,10 @@ var GameController = /** @class */ (function () {
                 }
                 else if (_this.isRunning) {
                     _this.pause();
+                }
+                else if (_this.model.isGameOver) {
+                    _this.reset();
+                    _this.start();
                 }
             }
             else if (e.code === "KeyR" || e.key === "r" || e.key === "R") {
@@ -83,6 +81,9 @@ var GameController = /** @class */ (function () {
         });
     };
     GameController.prototype.start = function () {
+        if (this.model.isGameOver) {
+            this.reset();
+        }
         this.isRunning = true;
         this.view.hideGameOver();
     };
@@ -99,22 +100,16 @@ var GameController = /** @class */ (function () {
     GameController.prototype.update = function (deltaTime) {
         if (!this.isRunning || this.model.isGameOver)
             return;
-        // Update player position
         this.model.updatePlayer(this.keys);
-        // Update game model
         this.model.update(deltaTime);
-        // Update UI
         this.view.updateUI(this.model);
-        // Check collision
         if (this.model.checkCollisions()) {
             this.model.isGameOver = true;
-            // Add score to leaderboard
             var rank = this.leaderboard.addScore(this.model.timeSurvived, this.model.killCount);
             this.leaderboard.highlightScore(rank);
             this.view.showGameOver();
             this.isRunning = false;
         }
-        // Draw everything
         this.view.draw(this.model);
     };
     return GameController;
