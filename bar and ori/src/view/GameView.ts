@@ -141,6 +141,12 @@ class GameView {
     if (killCountElement) {
       killCountElement.textContent = `Kills: ${model.killCount}`;
     }
+
+    // Update current score
+    const currentScoreElement = document.getElementById("currentScore");
+    if (currentScoreElement) {
+      currentScoreElement.textContent = `Score: ${model.currentScore}`;
+    }
     
     // Update ammo display
     const ammoElement = document.getElementById("ammo");

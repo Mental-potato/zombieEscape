@@ -7,50 +7,37 @@
   <link rel="stylesheet" href="./dist/style.css">
 </head>
 <body>
-  <h1>🧟 ZOMBIE CHASE 🧟</h1>
 
-  <div id="ui">
-    <div id="stats">
-      <div id="timer">Time survived: 0.0s</div>
-      <div id="killCount">Kills: 0</div>
-      <div style="display: flex; align-items: center;">
-        <div id="ammo">Ammo: 30</div>
-        <div id="reloadBar">
-          <div id="reloadProgress"></div>
-        </div>
-      </div>
+  <nav class="navbar">
+    <div class="nav-brand">🧟 ZOMBIE CHASE 🧟</div>
+    <div class="nav-links">
+      <a href="index.html" class="nav-btn active">Home</a>
+      <a href="game.html" class="nav-btn">Play Game</a>
+      <a href="leaderboard.html" class="nav-btn">Leaderboard</a>
+      <a href="settings.html" class="nav-btn">Settings</a>
     </div>
-    <div id="buttons">
-      <button id="startBtn">Start</button>
-      <button id="pauseBtn">Pause</button>
-      <button id="resetBtn">Reset</button>
-    </div>
-  </div>
-
-  <div style="position: relative;">
-    <canvas id="game" width="800" height="600"></canvas>
-    <div id="gameOver" style="display:none;">GAME OVER!</div>
-  </div>
-
-  <div class="controls">
-    Move: <span>WASD</span> or <span>Arrow Keys</span> • Shoot: <span>Mouse Click</span> • Reload: <span>R</span> • Pause: <span>Space</span> • Survive the zombie horde!
-  </div>
+  </nav>
 
 
-  <div id="leaderboard">
-    <h3>🏆 LEADERBOARD</h3>
-    <div id="leaderboard-list">
-      <div class="leaderboard-entry">
-        <span>No scores yet...</span>
+  <div class="page-container">
+    <div class="hero-section">
+      <h1 class="hero-title">🧟 ZOMBIE CHASE 🧟</h1>
+      <p class="hero-subtitle">Survive the zombie apocalypse!</p>
+      <div class="main-buttons">
+        <a href="game.html" class="main-btn play-btn">
+          <span class="btn-icon">🎮</span>
+          <span class="btn-text">Play Game</span>
+        </a>
+        <a href="leaderboard.html" class="main-btn leaderboard-btn">
+          <span class="btn-icon">🏆</span>
+          <span class="btn-text">Leaderboard</span>
+        </a>
+        <a href="settings.html" class="main-btn settings-btn">
+          <span class="btn-icon">⚙️</span>
+          <span class="btn-text">Settings</span>
+        </a>
       </div>
     </div>
   </div>
-
-
-  <script src="./src/dist/Leaderboard.js"></script>
-  <script src="./src/model/dist/GameModel.js"></script>
-  <script src="./src/view/dist/GameView.js"></script>
-  <script src="./src/controller/dist/GameController.js"></script>
-  <script src="./src/dist/main.js"></script>
-</body> 
+</body>
 </html>

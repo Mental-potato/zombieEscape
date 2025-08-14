@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Zombie Chase - Leaderboard</title>
+  <link rel="stylesheet" href="./dist/style.css">
+</head>
+<body>
+  <!-- Navigation -->
+  <nav class="navbar">
+    <div class="nav-brand">🧟 ZOMBIE CHASE 🧟</div>
+    <div class="nav-links">
+      <a href="index.html" class="nav-btn">Home</a>
+      <a href="game.html" class="nav-btn">Play Game</a>
+      <a href="leaderboard.html" class="nav-btn active">Leaderboard</a>
+      <a href="settings.html" class="nav-btn">Settings</a>
+    </div>
+  </nav>
+
+  <div class="page-container">
+    <div class="page-header">
+      <h1>🏆 LEADERBOARD</h1>
+      <p>Top 10 survivors who faced the zombie apocalypse</p>
+    </div>
+
+    <div class="leaderboard-container">
+      <div id="leaderboard-display" class="leaderboard-full">
+        <div class="leaderboard-header">
+          <div class="rank-col">Rank</div>
+          <div class="score-col">Score</div>
+          <div class="stats-col">Time Survived</div>
+          <div class="kills-col">Kills</div>
+          <div class="date-col">Date</div>
+        </div>
+        <div id="leaderboard-list">
+          <div class="leaderboard-entry empty">
+            <span>No scores yet... Be the first to survive!</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="leaderboard-actions">
+        <button id="clearLeaderboard" class="clear-btn">Clear All Scores</button>
+        <a href="game.html" class="play-again-btn">Play Again</a>
+      </div>
+    </div>
+  </div>
+
+  <!-- Leaderboard Script -->
+  <script src="./src/dist/Leaderboard.js"></script>
+  <script>
+    // Initialize and display leaderboard
+    const leaderboard = new Leaderboard();
+    
+    // Clear leaderboard functionality
+    document.getElementById('clearLeaderboard').addEventListener('click', () => {
+      if (confirm('Are you sure you want to clear all scores? This action cannot be undone.')) {
+        localStorage.removeItem('zombie-game-leaderboard');
+        location.reload();
+      }
+    });
+  </script>
+</body>
+</html>

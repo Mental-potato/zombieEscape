@@ -51,6 +51,10 @@ class Leaderboard {
     return this.scores.findIndex(s => s === score) + 1; // Return rank
   }
 
+  getTopScore(): number {
+  return this.scores.length > 0 ? this.scores[0].score : 0;
+  }
+
   updateDisplay(): void {
     const listElement = document.getElementById('leaderboard-list');
     if (!listElement) return;

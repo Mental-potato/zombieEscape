@@ -16,6 +16,7 @@ var GameModel = /** @class */ (function () {
         this.isGameOver = false;
         this.timeSurvived = 0;
         this.killCount = 0;
+        this.currentScore = 0; // NEW: Reset score
         this.ammo = 30;
         this.maxAmmo = 30;
         this.isReloading = false;
@@ -26,6 +27,11 @@ var GameModel = /** @class */ (function () {
         this.lastAmmoRestock = 0;
         // Spawn initial zombie
         this.spawnZombie();
+    };
+    // NEW: Calculate current score
+    GameModel.prototype.updateScore = function () {
+        // Same formula as leaderboard: time * 10 + kills * 50
+        this.currentScore = Math.round(this.timeSurvived * 10 + this.killCount * 50);
     };
     GameModel.prototype.spawnZombie = function () {
         // Spawn at random edge of screen
@@ -104,6 +110,7 @@ var GameModel = /** @class */ (function () {
                     this.bullets.splice(i, 1);
                     this.zombies.splice(j, 1);
                     this.killCount++;
+                    this.updateScore(); // NEW: Update score when kill happens
                     // Spawn new zombie after a short delay
                     setTimeout(function () {
                         if (!_this.isGameOver) {
@@ -171,6 +178,7 @@ var GameModel = /** @class */ (function () {
         if (this.isGameOver)
             return;
         this.timeSurvived += deltaTime;
+        this.updateScore(); // NEW: Update score continuously as time increases
         // Handle reloading
         if (this.isReloading) {
             this.reloadTime += deltaTime;
@@ -187,13 +195,6 @@ var GameModel = /** @class */ (function () {
             // Increase difficulty over time
             if (this.zombieSpawnRate > 0.8) {
                 this.zombieSpawnRate -= 0.1;
-            }
-        }
-        // Restock ammo every 15 seconds (only if not at max and not reloading)
-        if (this.timeSurvived - this.lastAmmoRestock >= 15 && !this.isReloading) {
-            if (this.ammo < this.maxAmmo) {
-                this.ammo = Math.min(this.maxAmmo, this.ammo + 15);
-                this.lastAmmoRestock = this.timeSurvived;
             }
         }
         this.updateZombies();

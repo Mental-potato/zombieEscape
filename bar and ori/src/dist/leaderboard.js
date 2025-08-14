@@ -38,6 +38,9 @@ var Leaderboard = /** @class */ (function () {
         this.updateDisplay();
         return this.scores.findIndex(function (s) { return s === score; }) + 1; // Return rank
     };
+    Leaderboard.prototype.getTopScore = function () {
+        return this.scores.length > 0 ? this.scores[0].score : 0;
+    };
     Leaderboard.prototype.updateDisplay = function () {
         var listElement = document.getElementById('leaderboard-list');
         if (!listElement)

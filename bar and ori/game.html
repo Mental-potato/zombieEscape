@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Zombie Chase - Play Game</title>
+  <link rel="stylesheet" href="./dist/style.css">
+</head>
+<body>
+
+  <nav class="navbar">
+    <div class="nav-brand">🧟 ZOMBIE CHASE 🧟</div>
+    <div class="nav-links">
+      <a href="index.html" class="nav-btn">Home</a>
+      <a href="game.html" class="nav-btn active">Play Game</a>
+      <a href="leaderboard.html" class="nav-btn">Leaderboard</a>
+      <a href="settings.html" class="nav-btn">Settings</a>
+    </div>
+  </nav>
+
+  <div class="page-container">
+
+    <div id="top-score-display" class="top-score-panel">
+      <span class="top-score-label">🏆 Best Score:</span>
+      <span id="top-score-value">0</span>
+    </div>
+
+    <div id="ui">
+      <div id="stats">
+        <div id="timer">Time survived: 0.0s</div>
+        <div id="killCount">Kills: 0</div>
+        <div id="currentScore">Score: 0</div>
+        <div style="display: flex; align-items: center;">
+          <div id="ammo">Ammo: 30</div>
+          <div id="reloadBar">
+            <div id="reloadProgress"></div>
+          </div>
+        </div>
+      </div>
+      <div id="buttons">
+        <button id="startBtn">Start</button>
+        <button id="pauseBtn">Pause</button>
+        <button id="resetBtn">Reset</button>
+      </div>
+    </div>
+
+    <div style="position: relative;">
+      <canvas id="game" width="800" height="600"></canvas>
+      <div id="gameOver" style="display:none;">
+        <div class="game-over-content">
+          <div class="game-over-title">GAME OVER!</div>
+          <div class="game-over-stats">
+            <div class="final-score">Final Score: <span id="final-score">0</span></div>
+            <div class="game-over-details">
+              <span id="final-time">0.0s survived</span> • <span id="final-kills">0 kills</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="controls">
+      Move: <span>WASD</span> or <span>Arrow Keys</span> • Shoot: <span>Mouse Click</span> • Reload: <span>R</span> • Pause: <span>Space</span> • Survive the zombie horde!
+    </div>
+  </div>
+
+
+  <script src="./src/dist/Leaderboard.js"></script>
+  <script src="./src/model/dist/GameModel.js"></script>
+  <script src="./src/view/dist/GameView.js"></script>
+  <script src="./src/controller/dist/GameController.js"></script>
+  <script src="./src/dist/main.js"></script>
+</body>
+</html>
