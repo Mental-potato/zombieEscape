@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Zombie Chase - Settings</title>
+  <link rel="stylesheet" href="./dist/style.css">
+</head>
+<body>
+  <!-- Navigation -->
+  <nav class="navbar">
+    <div class="nav-brand">🧟 ZOMBIE CHASE 🧟</div>
+    <div class="nav-links">
+      <a href="index.html" class="nav-btn">Home</a>
+      <a href="game.html" class="nav-btn">Play Game</a>
+      <a href="leaderboard.html" class="nav-btn">Leaderboard</a>
+      <a href="settings.html" class="nav-btn active">Settings</a>
+    </div>
+  </nav>
+
+  <div class="page-container">
+    <div class="page-header">
+      <h1>⚙️ SETTINGS</h1>
+      <p>Customize your zombie survival experience</p>
+    </div>
+
+    <div class="settings-container">
+      <div class="settings-section">
+        <h3>🎮 Game Settings</h3>
+        <div class="setting-item">
+          <label for="difficulty">Difficulty Level:</label>
+          <select id="difficulty">
+            <option value="easy">Easy</option>
+            <option value="normal" selected>Normal</option>
+            <option value="hard">Hard</option>
+            <option value="nightmare">Nightmare</option>
+          </select>
+        </div>
+        <div class="setting-item">
+          <label for="playerSpeed">Player Speed:</label>
+          <input type="range" id="playerSpeed" min="2" max="6" value="4" step="0.5">
+          <span id="speedValue">4</span>
+        </div>
+        <div class="setting-item">
+          <label for="zombieCount">Initial Zombie Count:</label>
+          <input type="range" id="zombieCount" min="1" max="5" value="1">
+          <span id="zombieValue">1</span>
+        </div>
+      </div>
+
+      <div class="settings-section">
+        <h3>🎵 Audio Settings</h3>
+        <div class="setting-item">
+          <label for="soundEnabled">Enable Sound Effects:</label>
+          <input type="checkbox" id="soundEnabled" checked>
+        </div>
+        <div class="setting-item">
+          <label for="musicEnabled">Enable Background Music:</label>
+          <input type="checkbox" id="musicEnabled" checked>
+        </div>
+        <div class="setting-item">
+          <label for="volume">Master Volume:</label>
+          <input type="range" id="volume" min="0" max="100" value="70">
+          <span id="volumeValue">70%</span>
+        </div>
+      </div>
+
+      <div class="settings-section">
+        <h3>🎨 Visual Settings</h3>
+        <div class="setting-item">
+          <label for="showGrid">Show Grid:</label>
+          <input type="checkbox" id="showGrid" checked>
+        </div>
+        <div class="setting-item">
+          <label for="showDistanceLines">Show Distance Lines:</label>
+          <input type="checkbox" id="showDistanceLines" checked>
+        </div>
+        <div class="setting-item">
+          <label for="glowEffects">Enable Glow Effects:</label>
+          <input type="checkbox" id="glowEffects" checked>
+        </div>
+      </div>
+
+      <div class="settings-section">
+        <h3>⌨️ Controls</h3>
+        <div class="controls-info">
+          <div class="control-item">
+            <span class="control-key">WASD / Arrow Keys</span>
+            <span class="control-action">Move Player</span>
+          </div>
+          <div class="control-item">
+            <span class="control-key">Mouse Click</span>
+            <span class="control-action">Shoot</span>
+          </div>
+          <div class="control-item">
+            <span class="control-key">R</span>
+            <span class="control-action">Reload</span>
+          </div>
+          <div class="control-item">
+            <span class="control-key">Space</span>
+            <span class="control-action">Pause/Resume</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="settings-actions">
+        <button id="saveSettings" class="save-btn">Save Settings</button>
+        <button id="resetSettings" class="reset-btn">Reset to Default</button>
+      </div>
+    </div>
+  </div>
+
+     <script src="./src/dist/settings.js"></script>
+
+</body>
+</html>
